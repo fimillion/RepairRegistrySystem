@@ -85,7 +85,7 @@
         $("#grid").jqGrid('navGrid','#pager',
                 {edit:true, add:true, del:true, search:false},
                 {/*MOD PARAM*/
-                    closeAfterEdit: true,
+                    closeAfterEdit: true, 
                     serializeEditData:function (data) {
                         if(data.id=="_empty")data.id=null;
                         data.contactTypeId=data.id;
