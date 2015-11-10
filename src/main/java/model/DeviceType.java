@@ -67,7 +67,7 @@ public class DeviceType {
     public void addBrand(Brand brand){
         if(brand!=null){
             if(brands.add(brand)){
-             brand.deviceTypes.add(this);
+             brand.getDeviceTypes().add(this);
             }
 
         }
@@ -76,7 +76,7 @@ public class DeviceType {
     public void removeBrand(Brand brand){
         if(brand!=null){
             if(brands.remove(brand)){
-                brand.deviceTypes.remove(this);
+                brand.getDeviceTypes().remove(this);
             }
 
         }

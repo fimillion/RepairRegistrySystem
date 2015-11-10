@@ -2,6 +2,7 @@ package model;
 
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -70,11 +71,7 @@ public class Brand {
     }
 
     public Set<DeviceType> getDeviceTypes() {
-        return deviceTypes;
-    }
-
-    public void setDeviceTypes(Set<DeviceType> deviceTypes) {
-        this.deviceTypes = deviceTypes;
+        return Collections.unmodifiableSet(deviceTypes);
     }
 
     public  void addDeviceType(DeviceType deviceType){
