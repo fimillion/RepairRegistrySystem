@@ -30,6 +30,7 @@ public class ContactTypeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String list(){
+
         return "contacttypes_list";
     }
 

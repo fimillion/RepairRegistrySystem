@@ -21,8 +21,11 @@ public class Brand {
     @Column(name = "BRAND_DESCRIPTION")
     private String brandDescription;
 
+    @Version
+    long version;
+
     @ManyToMany
-    Set<DeviceType> deviceTypes=new HashSet<>();
+    private Set<DeviceType> deviceTypes=new HashSet<>();
 
     public Long getBrandId() {
         return brandId;
@@ -56,6 +59,23 @@ public class Brand {
         this.brandDescription = brandDescription;
     }
 
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+
+        this.version = version;
+    }
+
+    public Set<DeviceType> getDeviceTypes() {
+        return deviceTypes;
+    }
+
+    public void setDeviceTypes(Set<DeviceType> deviceTypes) {
+        this.deviceTypes = deviceTypes;
+    }
 
     public  void addDeviceType(DeviceType deviceType){
         if(deviceType!=null){
