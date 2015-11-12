@@ -13,6 +13,9 @@ public class Model {
     @Column(name = "MODEL_NAME")
     private String modelName;
 
+    @Version
+    long version;
+
     @ManyToOne
     private Brand brand;
 
@@ -59,5 +62,13 @@ public class Model {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 }

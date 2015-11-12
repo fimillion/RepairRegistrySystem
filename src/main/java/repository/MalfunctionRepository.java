@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface MalfunctionRepository extends JpaRepository<Malfunctions,Long>{
+public interface MalfunctionRepository extends JpaRepository<Malfunctions,Long> {
     Page<Malfunctions> findByDirectoryNameContains(String name, Pageable pager);
     List<Malfunctions> findByDirectoryNameContains(String name);
     List<Malfunctions> findByDirectoryNameContains(String name,Sort sort);
