@@ -17,6 +17,9 @@ public class RepairPart {
     @Column(name = "REPAIR_PART_PRICE")
     private Double repairPartPrice;
 
+    @Version
+    private long version;
+
     public Long getRepairPartId() {
         return repairPartId;
     }
@@ -39,5 +42,13 @@ public class RepairPart {
 
     public void setRepairPartPrice(Double repairPartPrice) {
         this.repairPartPrice = repairPartPrice;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 }

@@ -17,7 +17,7 @@ public class ContactType {
     private String contactTypeMask;
 
     @Version
-    long version;
+    private long version;
 
     public Long getContactTypeId() {
         return contactTypeId;

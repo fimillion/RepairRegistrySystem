@@ -15,7 +15,10 @@ public class Contact {
     private ContactType contactType;
 
     @Column(name = "CONTACT_VALUE")
-    String value;
+    private String value;
+
+    @Version
+    private long version;
 
     public Long getContactId() {
         return contactId;
@@ -39,5 +42,13 @@ public class Contact {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 }

@@ -17,6 +17,9 @@ public class Work {
     @Column(name = "WORK_PRICE")
     private Double workPrice;
 
+    @Version
+    private long version;
+
     public Long getWorkId() {
         return workId;
     }
@@ -39,5 +42,13 @@ public class Work {
 
     public void setWorkPrice(Double workPrice) {
         this.workPrice = workPrice;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 }
