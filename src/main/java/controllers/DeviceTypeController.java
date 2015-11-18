@@ -1,9 +1,7 @@
 package controllers;
 
-
 import jgrid.JGridRowsResponse;
-import model.Model;
-import model.RepairPart;
+import model.DeviceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,30 +13,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import repository.ModelRepository;
-import repository.RepairPartRepository;
+import repository.DeviceTypeRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 @Controller
-@RequestMapping("/repairparts")
-public class RepairPartController {
+@RequestMapping("/devicetypes")
+public class DeviceTypeController {
+
+
     @Autowired
-    RepairPartRepository repairPartRepository;
+    DeviceTypeRepository deviceTypeRepository;
 
     @Secured("ROLE_USER")
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String list(){
-        return "repairparts_list";
+        return "devicetypes_list";
     }
 
     @Transactional(readOnly = true)
     @RequestMapping(value = "/listing", method = RequestMethod.POST)
     @ResponseBody
-    public JGridRowsResponse<Model> getTable(HttpServletRequest request){
+    public JGridRowsResponse<DeviceType> getTable(HttpServletRequest request){
         PageRequest pageRequest=null;
         if(request.getParameter("page")!=null){
             int rows=10;
@@ -57,39 +57,38 @@ public class RepairPartController {
             }
 
         }/**/
-        String filterName=request.getParameter("modelName");
+        String filterName=request.getParameter("deviceTypeName");
         if(pageRequest!=null){
             if(filterName!=null && !filterName.isEmpty()){
-                return new JGridRowsResponse<>(repairPartRepository.findByModelNameContains(filterName, pageRequest));
+                return new JGridRowsResponse<>(deviceTypeRepository.findByDeviceTypeNameContains(filterName, pageRequest));
             } else
-                return new JGridRowsResponse<>(repairPartRepository.findAll(pageRequest));
+                return new JGridRowsResponse<>(deviceTypeRepository.findAll(pageRequest));
         } else {
             if(filterName!=null && !filterName.isEmpty()){
-                return new JGridRowsResponse<>(repairPartRepository.findByModelNameContains(filterName));
+                return new JGridRowsResponse<>(deviceTypeRepository.findByDeviceTypeNameContains(filterName));
             } else
-                return new JGridRowsResponse<>(repairPartRepository.findAll());
+                return new JGridRowsResponse<>(deviceTypeRepository.findAll());
         }
     }
 
 
     @Transactional(readOnly = false)
     @RequestMapping(value = "/edit", method = {RequestMethod.POST,RequestMethod.GET})
-    public void editor(@RequestParam String oper,@RequestParam(required = false) Long id, RepairPart repairPart,BindingResult result,HttpServletResponse response)throws IOException {
+    public void editor(@RequestParam String oper,@RequestParam(required = false) Long id, DeviceType deviceType,BindingResult result,HttpServletResponse response)throws IOException {
         if(result.hasErrors()){
             response.sendError(400,result.toString());
             return;
         }
         switch (oper){
             case "add":
-                repairPartRepository.save(repairPart);
+                deviceTypeRepository.save(deviceType);
                 response.setStatus(200);
                 break;
             case "edit":
-                Model fromDB= repairPartRepository.getOne(repairPart.getModelId());
-
+                DeviceType fromDB= deviceTypeRepository.getOne(deviceType.getDeviceTypeId());
                 if(fromDB!=null) {
-                    if(repairPart.getVersion()>=fromDB.getVersion()) {
-                        repairPartRepository.save(repairPart);
+                    if(deviceType.getVersion()>=fromDB.getVersion()) {
+                        deviceTypeRepository.save(deviceType);
                         response.setStatus(200);
                     } else {
                         response.sendError(406,"ANOTHER TRANSACTION MODIFICATION");
@@ -101,7 +100,7 @@ public class RepairPartController {
                 break;
             case "del":
                 if(id!=null) {
-                    repairPartRepository.delete(id);
+                    deviceTypeRepository.delete(id);
                     response.setStatus(200);
                 }
                 break;
