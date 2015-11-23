@@ -27,6 +27,8 @@ import java.io.IOException;
 public class RepairPartController {
     @Autowired
     RepairPartRepository repairPartRepository;
+    @Autowired
+    ModelRepository modelRepository;
 
     @Secured("ROLE_USER")
 
@@ -38,7 +40,7 @@ public class RepairPartController {
     @Transactional(readOnly = true)
     @RequestMapping(value = "/listing", method = RequestMethod.POST)
     @ResponseBody
-    public JGridRowsResponse<Model> getTable(HttpServletRequest request){
+    public JGridRowsResponse<RepairPart> getTable(HttpServletRequest request){
         PageRequest pageRequest=null;
         if(request.getParameter("page")!=null){
             int rows=10;
@@ -57,16 +59,9 @@ public class RepairPartController {
             }
 
         }/**/
-        String filterName=request.getParameter("modelName");
         if(pageRequest!=null){
-            if(filterName!=null && !filterName.isEmpty()){
-                return new JGridRowsResponse<>(repairPartRepository.findByModelNameContains(filterName, pageRequest));
-            } else
                 return new JGridRowsResponse<>(repairPartRepository.findAll(pageRequest));
         } else {
-            if(filterName!=null && !filterName.isEmpty()){
-                return new JGridRowsResponse<>(repairPartRepository.findByModelNameContains(filterName));
-            } else
                 return new JGridRowsResponse<>(repairPartRepository.findAll());
         }
     }
@@ -74,7 +69,10 @@ public class RepairPartController {
 
     @Transactional(readOnly = false)
     @RequestMapping(value = "/edit", method = {RequestMethod.POST,RequestMethod.GET})
-    public void editor(@RequestParam String oper,@RequestParam(required = false) Long id, RepairPart repairPart,BindingResult result,HttpServletResponse response)throws IOException {
+    public void editor(@RequestParam String oper,
+                       @RequestParam(required = false) Long id, RepairPart repairPart,
+                       BindingResult result,
+                       HttpServletResponse response)throws IOException {
         if(result.hasErrors()){
             response.sendError(400,result.toString());
             return;
@@ -85,7 +83,7 @@ public class RepairPartController {
                 response.setStatus(200);
                 break;
             case "edit":
-                Model fromDB= repairPartRepository.getOne(repairPart.getModelId());
+                RepairPart fromDB= repairPartRepository.getOne(repairPart.getModelId());
 
                 if(fromDB!=null) {
                     if(repairPart.getVersion()>=fromDB.getVersion()) {
