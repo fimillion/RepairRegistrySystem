@@ -83,7 +83,7 @@ public class RepairPartController {
                 response.setStatus(200);
                 break;
             case "edit":
-                RepairPart fromDB= repairPartRepository.getOne(repairPart.getModelId());
+                RepairPart fromDB= repairPartRepository.getOne(repairPart.getRepairPartId());
 
                 if(fromDB!=null) {
                     if(repairPart.getVersion()>=fromDB.getVersion()) {

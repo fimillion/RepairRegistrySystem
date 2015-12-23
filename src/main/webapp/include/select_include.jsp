@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="<c:url value="/resources/script/ajax_combo/jquery.ajax-combobox.js"/>"></script>
+<script src="<c:url value="/resources/script/application_select.jsp"/>"></script>
 <link rel="stylesheet" href="<c:url value="/resources/script/ajax_combo/jquery.ajax-combobox.css"/>">
 
 <style>

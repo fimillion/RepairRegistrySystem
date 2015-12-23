@@ -52,10 +52,12 @@
             datatype: 'json',
             mtype: 'POST',
             styleUI : 'Bootstrap',
-            colNames:['Id', 'Name', 'Version'],
+            colNames:['Id', 'Name','Description','Country', 'Version'],
             colModel:[
                 {name:'brandId',index:'brandId', width:55, editable:false, editoptions:{readonly:true, size:10}, hidden:true},
                 {name:'brandName',index:'brandName', width:100, editable:true, editrules:{required:true}, editoptions:{size:10}},
+                {name:'brandDescription',index:'brandDescription', width:100, editable:true, search: false,editrules:{required:true}, editoptions:{size:10}},
+                {name:'brandCounry',index:'brandCounry', width:100, editable:true, editrules:{required:true},search: false, editoptions:{size:10}},
                 {name:'version',index:'version', width:100, editable:true, editrules:{readonly:true}, editoptions:{size:10,defaultValue:'0'}, hidden:true}
             ],
             rowNum:10,

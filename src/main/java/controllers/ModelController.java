@@ -32,6 +32,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/models")
 public class ModelController {
+
     @Autowired
     ModelRepository modelRepository;
     @Autowired
@@ -43,6 +44,7 @@ public class ModelController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String list(){
+
         return "models_list";
     }
 

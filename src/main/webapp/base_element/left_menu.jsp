@@ -69,13 +69,16 @@
         </sec:authorize>
       </sec:authorize>
         <li>
-          <a href="#"><i class="fa fa-inbox fa-fw"></i><c:message code="label.tasks"/><span class="fa arrow"></span></a>
+          <a href="#"><i class="fa fa-inbox fa-fw"></i><c:message code="label.directory"/><span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li>
-              <a href="${pageContext.request.contextPath}/task/list"><c:message code="label.tasks.task"/></a>
+              <a href="${pageContext.request.contextPath}/models/"><c:message code="label.models"/></a>
             </li>
             <li>
-              <a href="${pageContext.request.contextPath}/task/active"><c:message code="label.tasks.task"/></a>
+              <a href="${pageContext.request.contextPath}/brands/"><c:message code="label.brands"/></a>
+            </li>
+            <li>
+              <a href="${pageContext.request.contextPath}/devicetypes/"><c:message code="label.models.deviceType.title"/></a>
             </li>
             <sec:authorize ifAnyGranted="ROLE_TASK_CREATE">
             <li>
@@ -108,9 +111,6 @@
             </li>
             <li>
               <a href="${pageContext.request.contextPath}/roles/list"> <c:message code="label.administrate.roles"/></a>
-            </li>
-            <li>
-              <a href="subdivisions/"> <c:message code="label.administrate.subdivisions"/></a>
             </li>
           </ul>
         </li>

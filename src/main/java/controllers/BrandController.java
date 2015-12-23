@@ -1,8 +1,10 @@
 package controllers;
 
 import jgrid.JGridRowsResponse;
+import jgrid.JSComboExpenseResp;
 import model.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.annotation.Secured;
@@ -18,6 +20,7 @@ import repository.BrandRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/brands")
@@ -104,6 +107,45 @@ public class BrandController {
                 break;
             default:
                 response.sendError(406,"UNKNOWN OPERATION");
+        }
+    }
+
+    @Transactional(readOnly = true)
+    @RequestMapping(value = "/showList", method = RequestMethod.GET)
+    @ResponseBody
+    public Object simpleClientList(@RequestParam(required = false) Integer page_num, @RequestParam(required = false) Integer per_page,@RequestParam(value = "pkey_val[]",required = false) String pkey,@RequestParam(value = "q_word[]",required = false) String[] qword) {
+        //Sort sort= FormSort.formSortFromSortDescription(orderby);
+        Sort sort=new Sort(Sort.Direction.ASC,"brandName");
+        PageRequest pager=null;
+        if(page_num!=null && per_page!=null) {
+            page_num= page_num<1?1:page_num;
+            pager = new PageRequest(page_num - 1, per_page, sort);
+        }
+        if(pager!=null) {
+            Page<Brand> page;
+            if (qword != null && qword.length > 0) {
+                page = brandRepository.findByBrandNameContains(qword[0], pager);
+            } else {
+                page = brandRepository.findAll(pager);
+            }
+            return new JSComboExpenseResp<>(page);
+        } else {
+            if(pkey!=null && !pkey.isEmpty()){
+                Long key=Long.valueOf(pkey);
+                Brand ft=null;
+                if(key!=null) {
+                    ft = brandRepository.findOne(key);
+                }
+                return ft;
+            } else {
+                List<Brand> page;
+                if (qword != null && qword.length > 0) {
+                    page = brandRepository.findByBrandNameContains("%" + qword[0] + "%", sort);
+                } else {
+                    page = brandRepository.findAll(sort);
+                }
+                return new JSComboExpenseResp<>(page);
+            }
         }
     }
 }

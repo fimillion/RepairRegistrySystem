@@ -52,10 +52,11 @@
             datatype: 'json',
             mtype: 'POST',
             styleUI : 'Bootstrap',
-            colNames:['Id', 'Name', 'Version'],
+            colNames:['Id', 'Name', 'Description','Version'],
             colModel:[
                 {name:'deviceTypeId',index:'deviceTypeId', width:55, editable:false, editoptions:{readonly:true, size:10}, hidden:true},
                 {name:'deviceTypeName',index:'deviceTypeName', width:100, editable:true, editrules:{required:true}, editoptions:{size:10}},
+                {name:'deviceTypeDescription',index:'deviceTypeDescription', width:100, editable:true,search: false, editrules:{required:true}, editoptions:{size:10}},
                 {name:'version',index:'version', width:100, editable:true, editrules:{readonly:true}, editoptions:{size:10,defaultValue:'0'}, hidden:true}
             ],
             rowNum:10,

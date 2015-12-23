@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/brands")
+@RequestMapping("/persons")
 public class PersonController {
 
     @Autowired
